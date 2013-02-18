@@ -38,9 +38,9 @@ alias su="su -m "
 
 # grep colours 
 alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
+alias grep='GREP_COLOR="1;31"; grep --color=auto'
+alias fgrep='GREP_COLOR="1;31"; fgrep --color=auto'
+alias egrep='GREP_COLOR="1;31"; egrep --color=auto'
 
 # ls aliases
 alias ll='ls -l -h'
