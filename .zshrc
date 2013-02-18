@@ -49,3 +49,9 @@ alias l='ls -CF'
 
 # cd aliases
 alias ..='cd ..'
+
+ALL_COLOURS=(31 35 37)
+function highlight()
+{
+       GREP_COLOR="1;${ALL_COLOURS[$(($RANDOM % 6))]}" egrep --color=always "$1|$" $2
+}
