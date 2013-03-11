@@ -29,7 +29,7 @@ ZSH_THEME="agnoster"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -38,9 +38,9 @@ alias su="su -m "
 
 # grep colours 
 alias ls='ls --color=auto'
-alias grep='GREP_COLOR="1;31"; grep --color=auto'
-alias fgrep='GREP_COLOR="1;31"; fgrep --color=auto'
-alias egrep='GREP_COLOR="1;31"; egrep --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 
 # ls aliases
 alias ll='ls -l -h'
