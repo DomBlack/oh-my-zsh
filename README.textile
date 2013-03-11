@@ -16,12 +16,16 @@ h2. Setup
 
   @ls -s ~/.oh-my-zsh/.zshrc ~/.zshrc@
 
+4. Get the submodules
+  @git submodule init@
+  @git submodule update@
 
-4. Set zsh as your default shell:
+
+5. Set zsh as your default shell:
 
   @chsh -s /bin/zsh@
 
-5. Start / restart zsh (open a new terminal is easy enough...)
+6. Start / restart zsh (open a new terminal is easy enough...)
 
 h3. Problems?
 
