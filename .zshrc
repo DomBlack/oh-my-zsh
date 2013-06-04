@@ -61,7 +61,7 @@ function hl() { local R=''; while [ $# -gt 0 ]; do R="$R|$1"; shift; done; GREP_
 function psgrep()
 {
 	#The echo | sed removes the grep line from being detected
-	ps aux | GREP_COLOR="1;37" egrep -i --color=always $(echo "Chrome" | sed 's/^\(.\)\(.*\)$/[\1]\2/')
+	ps aux | GREP_COLOR="1;37" egrep -i --color=always $(echo "$1" | sed 's/^\(.\)\(.*\)$/[\1]\2/')
 }
 
 DEFAULT_USER="dom"
