@@ -29,7 +29,7 @@ ZSH_THEME="agnoster"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git zsh-syntax-highlighting)
+plugins=(git brew mvn osx sublime zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -37,7 +37,7 @@ source $ZSH/oh-my-zsh.sh
 alias su="su -m "
 
 # grep colours 
-alias ls='ls --color=auto'
+alias ls='ls -G'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
@@ -53,5 +53,22 @@ alias ..='cd ..'
 ALL_COLOURS=(31 35 37)
 function highlight()
 {
-       GREP_COLOR="1;${ALL_COLOURS[$(($RANDOM % 6))]}" egrep --color=always "$1|$" $2
+       GREP_COLOR="1;${ALL_COLOURS[$(($RANDOM % 3))]}" egrep --color=always "$1|$" $2
 }
+
+function hl() { local R=''; while [ $# -gt 0 ]; do R="$R|$1"; shift; done; GREP_COLOR="1;$(($RANDOM % 6 + 31))" egrep -i --color=always "\$$R"; }
+
+function psgrep()
+{
+	#The echo | sed removes the grep line from being detected
+	ps aux | GREP_COLOR="1;37" egrep -i --color=always $(echo "Chrome" | sed 's/^\(.\)\(.*\)$/[\1]\2/')
+}
+
+DEFAULT_USER="dom"
+
+# Setup Path
+export PATH=/usr/local/sbin:/usr/local/bin:$PATH
+export PATH="$(brew --prefix josegonzalez/php/php53)/bin:$PATH"
+export PATH="$PATH:/usr/local/share/npm/bin"
+
+export VAGRANT_HOME="/Volumes/External Data/VagrantHome"
