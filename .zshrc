@@ -67,8 +67,11 @@ function psgrep()
 DEFAULT_USER="dom"
 
 # Setup Path
-export PATH=/usr/local/sbin:/usr/local/bin:$PATH
-export PATH="$(brew --prefix josegonzalez/php/php53)/bin:$PATH"
-export PATH="$PATH:/usr/local/share/npm/bin"
+SYSTEM_TYPE=$(uname)
+if [ "$(uname)" = 'Darwin' ]; then
+	export PATH=/usr/local/sbin:/usr/local/bin:$PATH
+	export PATH="$(brew --prefix josegonzalez/php/php53)/bin:$PATH"
+	export PATH="$PATH:/usr/local/share/npm/bin"
 
-export VAGRANT_HOME="/Volumes/External Data/VagrantHome"
+	export VAGRANT_HOME="/Volumes/External Data/VagrantHome"
+fi
