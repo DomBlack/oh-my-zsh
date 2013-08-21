@@ -74,4 +74,5 @@ if [ "$(uname)" = 'Darwin' ]; then
 	export PATH="$PATH:/usr/local/share/npm/bin"
 
 	export VAGRANT_HOME="/Volumes/External Data/VagrantHome"
+	export CLOSURE_PATH="$(brew --prefix closure-compiler)/libexec/"
 fi
