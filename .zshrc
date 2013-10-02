@@ -54,6 +54,8 @@ alias l='ls -CF'
 # cd aliases
 alias ..='cd ..'
 
+alias unsafe-ssh='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+
 ALL_COLOURS=(31 35 37)
 function highlight()
 {
@@ -75,8 +77,27 @@ SYSTEM_TYPE=$(uname)
 if [ "$(uname)" = 'Darwin' ]; then
 	export PATH=/usr/local/sbin:/usr/local/bin:$PATH
 	export PATH="$(brew --prefix josegonzalez/php/php53)/bin:$PATH"
+	export PATH="/usr/local/opt/ruby/bin:$PATH"
 	export PATH="$PATH:/usr/local/share/npm/bin"
+	export RBENV_ROOT=/usr/local/var/rbenv
+	export PATH="/usr/local/var/rbenv/shims:${PATH}"
+	rbenv rehash 2>/dev/null
+rbenv() {
+  typeset command
+  command="$1"
+  if [ "$#" -gt 0 ]; then
+    shift
+  fi
+
+  case "$command" in
+  rehash|shell)
+    eval `rbenv "sh-$command" "$@"`;;
+  *)
+    command rbenv "$command" "$@";;
+  esac
+}
 
 	export VAGRANT_HOME="/Volumes/External Data/VagrantHome"
 	export CLOSURE_PATH="$(brew --prefix closure-compiler)/libexec/"
+	export JAVA_HOME=$(/usr/libexec/java_home)
 fi
