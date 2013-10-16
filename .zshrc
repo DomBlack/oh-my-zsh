@@ -30,7 +30,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 if [ "$(uname)" = 'Darwin' ]; then
-	plugins=(git brew mvn osx sbt scala sublime node vagrant cp npm zsh-syntax-highlighting)
+	plugins=(git brew mvn osx sbt scala sublime node vagrant cap cp npm zsh-syntax-highlighting)
 else
 	plugins=(git mvn node npm screen yum cp zsh-syntax-highlighting)
 fi
