@@ -83,6 +83,7 @@ if [ "$(uname)" = 'Darwin' ]; then
 	export PATH="/usr/local/var/rbenv/shims:${PATH}"
 	export PATH="/usr/local/llvm32/bin:$PATH"
 	export PATH="/usr/local/cov-analysis/bin:$PATH"
+	export PATH="/Users/dom/.composer/vendor/bin:$PATH"
 	export GOPATH=$HOME/go
 	export PATH=$PATH:/usr/local/opt/go/libexec/bin:$GOPATH/bin
 	rbenv rehash 2>/dev/null
@@ -101,11 +102,12 @@ rbenv() {
   esac
 }
 
-	#export VAGRANT_HOME="/Volumes/External Data/VagrantHome"
-	export VAGRANT_HOME="/Users/dom/VMs/VagrantHome"
+	export VAGRANT_HOME="/Volumes/External Data/VagrantHome"
+	#export VAGRANT_HOME="/Users/dom/VMs/VagrantHome"
 	export CLOSURE_PATH="$(brew --prefix closure-compiler)/libexec/"
-	export JAVA_HOME=$(/usr/libexec/java_home)
+	export JAVA_HOME=$(/usr/libexec/java_home -v 1.7.0)
 	export SCALA_HOME=/usr/local/opt/scala/idea
 	#export DOCKER_HOST="localhost"
-	export DOCKER_HOST=tcp://172.16.42.43:4243
+	#export DOCKER_HOST=tcp://172.16.42.43:4243
+	export DOCKER_HOST=tcp://192.168.59.104:2375
 fi
