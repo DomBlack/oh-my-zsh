@@ -87,27 +87,22 @@ If you'd like to change the install directory with the `ZSH` environment variabl
 
 #### Manual Installation
 
-##### 1. Clone the repository:
+##### 1. Clone the repository
 
-`git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh`
+`git clone git://github.com/DomBlack/oh-my-zsh.git ~/.oh-my-zsh`
 
-##### 2. *Optionally*, backup your existing @~/.zshrc@ file:
+##### 2. Link the ~/.zshrc file:
 
-`cp ~/.zshrc ~/.zshrc.orig`
+`ln -s ~/.oh-my-zsh/.zshrc ~/.zshrc`
 
-##### 3. Create a new zsh configuration file
+##### 3. Get the submodules
 
-You can create a new zsh config file by copying the template that we included for you.
+`cd ~/.oh-my-zsh`
+`git submodule init`
+`git submodule update`
 
-`cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc`
-
-##### 4. Change your default shell
-
+##### 5. Set zsh as your default shell:
 `chsh -s /bin/zsh`
-
-##### 5. Initialize your new zsh configuration
-
-Once you open up a new terminal window, it should load zsh with Oh My Zsh's configuration.
 
 ### Installation Problems
 
