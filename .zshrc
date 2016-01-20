@@ -40,7 +40,7 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 alias su="su -m "
 
-# grep colours 
+# grep colours
 alias ls='ls -G'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -70,6 +70,18 @@ function psgrep()
 	ps aux | GREP_COLOR="1;37" egrep -i --color=always $(echo "$1" | sed 's/^\(.\)\(.*\)$/[\1]\2/')
 }
 
+function nextfreeport()
+{
+	for port in $(seq $1 65000); do; (netstat -ant | grep ".$port ") > /dev/null; if [ $? -eq 1 ]; then; echo "$port" && break; fi; done
+}
+
+
+#  -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=$(nextfreeport 9010) -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=true -Djava.rmi.server.hostname=127.0.0.1
+
+alias sbt7='export NO_FORK=true && JAVA_HOME=$(/usr/libexec/java_home -v 1.7.0) && sbt -jvm-debug $(nextfreeport 5005)'
+
+alias sbt8='export NO_FORK=true && JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0) && sbt -jvm-debug $(nextfreeport 5005)'
+
 DEFAULT_USER="dom"
 
 # Setup Path
@@ -86,6 +98,8 @@ if [ "$(uname)" = 'Darwin' ]; then
 	export PATH="/Users/dom/.composer/vendor/bin:$PATH"
 	export GOPATH=$HOME/go
 	export PATH=$PATH:/usr/local/opt/go/libexec/bin:$GOPATH/bin
+	export PATH=$PATH:/usr/local/var/rbenv/versions/1.9.3-p125/bin
+	export PATH="$PATH:$(brew --prefix icu4c)/bin"
 	rbenv rehash 2>/dev/null
 rbenv() {
   typeset command
@@ -105,9 +119,11 @@ rbenv() {
 	export VAGRANT_HOME="/Volumes/External Data/VagrantHome"
 	#export VAGRANT_HOME="/Users/dom/VMs/VagrantHome"
 	export CLOSURE_PATH="$(brew --prefix closure-compiler)/libexec/"
-	export JAVA_HOME=$(/usr/libexec/java_home -v 1.7.0)
+	export JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0)
 	export SCALA_HOME=/usr/local/opt/scala/idea
-	#export DOCKER_HOST="localhost"
-	#export DOCKER_HOST=tcp://172.16.42.43:4243
-	export DOCKER_HOST=tcp://192.168.59.104:2375
 fi
+
+[ -f /Users/dom/.oh-my-zsh/.private ] && source /Users/dom/.oh-my-zsh/.private
+
+# added by travis gem
+[ -f /Users/dom/.travis/travis.sh ] && source /Users/dom/.travis/travis.sh
