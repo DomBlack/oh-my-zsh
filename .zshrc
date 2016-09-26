@@ -75,11 +75,28 @@ function nextfreeport()
 	for port in $(seq $1 65000); do; (netstat -ant | grep ".$port ") > /dev/null; if [ $? -eq 1 ]; then; echo "$port" && break; fi; done
 }
 
+function tssh() { /usr/bin/ssh -t $@ "tmux attach || tmux new";}
+
+# 0 -- vanilla completion (abc => abc)
+# 1 -- smart case completion (abc => Abc)
+# 2 -- word flex completion (abc => A-big-Car)
+# 3 -- full flex completion (abc => ABraCadabra)
+zstyle ':completion:*' matcher-list '' \
+  'm:{a-z\-}={A-Z\_}' \
+  'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
+  'r:|?=** m:{a-z\-}={A-Z\_}'
+
+function prj()
+{
+  CDPATH=.:~/workspace:~/projects:~/workspace/github && cd $1 > /dev/null;
+}
+compctl -M 'm:{a-z\-}={A-Z\_} r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_} r:|?=** m:{a-z\-}={A-Z\_}'  -W "(/Users/dom/workspace/ /Users/dom/projects/ /Users/dom/workspace/github/)" -/ prj
+
+# Search for files and page it
+function search() { find . -iname "*$@*" | less; }
 
 #  -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=$(nextfreeport 9010) -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=true -Djava.rmi.server.hostname=127.0.0.1
-
 alias sbt7='export NO_FORK=true && JAVA_HOME=$(/usr/libexec/java_home -v 1.7.0) && sbt -jvm-debug $(nextfreeport 5005)'
-
 alias sbt8='export NO_FORK=true && JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0) && sbt -jvm-debug $(nextfreeport 5005)'
 
 DEFAULT_USER="dom"
@@ -101,6 +118,9 @@ if [ "$(uname)" = 'Darwin' ]; then
 	export PATH=$PATH:/usr/local/var/rbenv/versions/1.9.3-p125/bin
 	export PATH="$PATH:$(brew --prefix icu4c)/bin"
 	rbenv rehash 2>/dev/null
+
+  # PERL_MM_OPT="INSTALL_BASE=$HOME/perl5" cpan local::lib
+  # echo 'eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"' >> ~/.bash_profile
 rbenv() {
   typeset command
   command="$1"
@@ -116,8 +136,8 @@ rbenv() {
   esac
 }
 
-	export VAGRANT_HOME="/Volumes/External Data/VagrantHome"
-	#export VAGRANT_HOME="/Users/dom/VMs/VagrantHome"
+#	export VAGRANT_HOME="/Volumes/External Data/VagrantHome"
+export VAGRANT_HOME="/Users/dom/VMs/VagrantHome"
 	export CLOSURE_PATH="$(brew --prefix closure-compiler)/libexec/"
 	export JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0)
 	export SCALA_HOME=/usr/local/opt/scala/idea
